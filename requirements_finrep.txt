@@ -1,0 +1,12 @@
+polars==1.33.0
+pyarrow
+s3fs
+duckdb
+dbt-core
+dbt-duckdb
+pydantic
+prefect
+python-dotenv
+rich
+typer
+great-expectations
