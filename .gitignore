@@ -1,0 +1,26 @@
+# ---- Python
+__pycache__/
+*.py[cod]
+*.pyd
+.venv/
+.env
+
+# ---- Local data & outputs (don’t version raw/curated files)
+data/
+*.parquet
+*.csv
+*.xlsx
+
+# ---- dbt & logs
+target/
+dbt_packages/
+logs/
+.dbt/
+
+# ---- OS / editor noise
+.DS_Store
+Thumbs.db
+
+# ---- BI files (optional: remove if you want to track them)
+*.pbix
+*.pbip
