@@ -1,0 +1,12 @@
+table,row_count
+SRC_Holdings,9996
+SRC_Movements,9627
+SRC_DailyValues,8551
+SRC_CashAgenda,1769
+SRC_GenericCalendar,5833
+CDM_Portfolio,3
+CDM_SecurityMaster,400
+CDM_Holdings,9996
+CDM_PortfolioDailyValues,8551
+CDM_Transactions,9627
+CDM_CashAgenda,1769

@@ -1,0 +1,5 @@
+check,duplicate_groups
+"CDM_PortfolioDailyValues (portfolio_sk,value_date)",0
+"CDM_Holdings (portfolio_sk,security_sk,value_date,asof_datetime)",98
+"CDM_Transactions (portfolio_sk,trade_id)",1327
+"CDM_CashAgenda (portfolio_sk,security_sk,event_date,cash_type)",0

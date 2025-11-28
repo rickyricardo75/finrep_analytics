@@ -1,0 +1,73 @@
+Transaction;Transaction group;Transaction subgroup;Transaction subtype;Transaction type code;Transaction subtype code
+Administration fees;Internal;Fees;Common Fees;12;12003
+ATM;Capital Movement;Capital Movement;Withdrawal;11;11004
+Bonus shares;Internal;Corporate action;Chge Amount;7;7002
+Book value transfer;Internal;Corporate action;Chge Book Value;6;6003
+Capital increase;Internal;Corporate action;Chge Amount;7;7003
+Cash entry;Capital Movement;Capital Movement;Deposit;10;10002
+Cash payment;Capital Movement;Capital Movement;Withdrawal;11;11002
+Change in profit;Internal;Other Internal;Chng Earn.;15;15001
+Check entry;Capital Movement;Capital Movement;Deposit;10;10003
+Check payment;Capital Movement;Capital Movement;Withdrawal;11;11003
+Commissions;Internal;Income;Income;5;5005
+Conversion;Internal;Foreign Exchange;Acct Transfer;14;14001
+FX Spot Conversion;Internal;Foreign Exchange;Acct Transfer;14;14001
+FX Forward Conversion;Internal;Foreign Exchange;Acct Transfer;14;14001
+Coupon payment;Internal;Income;Income;5;5001
+Credit agreement;Internal;Transaction;Investment;8;8003
+Credit card;Capital Movement;Capital Movement;Withdrawal;11;11005
+Credit entry;Capital Movement;Capital Movement;Deposit;10;10001
+Credit entry *;Capital Movement;Capital Movement;Deposit;10;10001
+Credit interest;Internal;Income;Income;5;5003
+Credit repayment;Internal;Transaction;Redemption;9;9003
+Debit interest;Internal;Income;Income;5;5006
+Decrease call;Internal;Transaction;Redemption;9;9002
+Delivery in;Capital Movement;Capital Movement;Delivery In;3;3001
+Delivery In *;Capital Movement;Capital Movement;Delivery In;3;3001
+Delivery out;Capital Movement;Capital Movement;Delivery Out;4;4001
+Dividend payment;Internal;Income;Income;5;5002
+Exercise from option;Internal;Transaction;Purchase;1;1005
+Fee for retained mail;Internal;Fees;Common Fees;12;12006
+Flat fees;Internal;Fees;Common Fees;12;12004
+Guarantee commission;Internal;Fees;Common Fees;12;12007
+Increase call;Internal;Transaction;Investment;8;8002
+Interest payment;Internal;Income;Income;5;5007
+Internal delivery in;Capital Movement;Capital Movement;Delivery In;3;3006
+Internal delivery out;Capital Movement;Capital Movement;Delivery Out;4;4006
+Internal entry;Capital Movement;Capital Movement;Deposit;10;10006
+Internal payment;Capital Movement;Capital Movement;Withdrawal;11;11006
+Investment;Internal;Transaction;Investment;8;8001
+Management fees;Internal;Fees;Common Fees;12;12002
+Management fees withdrawal;Capital Movement;Capital Movement;Withdrawal;11;11007
+Money transfer fees;Internal;Fees;Common Fees;12;12008
+Other Expenses;Internal;Fees;Common Fees;12;12009
+Other Expenses withdrawal;Capital Movement;Capital Movement;Withdrawal;11;11009
+Other Income;Internal;Income;Common Income;13;13009
+Payment;Capital Movement;Capital Movement;Withdrawal;11;11001
+Performance fee;Internal;Fees;Common Fees;12;12005
+Profit transfer;Internal;Other Internal;Chng Earn.;15;15002
+Purchase;Internal;Transaction;Purchase;1;1001
+Purchase from subscription rights;Internal;Transaction;Purchase;1;1004
+Purchase to close;Internal;Transaction;Purchase;1;1003
+Purchase to open;Internal;Transaction;Purchase;1;1002
+Redemption;Internal;Transaction;Redemption;9;9001
+Fund Redemption;Internal;Transaction;Sale;2;2006
+Reduct. par value;Internal;Corporate action;Chge Book Value;6;6002
+Refund;Internal;Income;Income;5;5004
+Reverse split;Internal;Corporate action;Chge Amount;7;7004
+Safekeeping charges;Internal;Fees;Common Fees;12;12001
+Safekeeping charges withdrawal;Capital Movement;Capital Movement;Withdrawal;11;11008
+Sale;Internal;Transaction;Sale;2;2001
+Sale to close;Internal;Transaction;Sale;2;2003
+Sale to open;Internal;Transaction;Sale;2;2002
+Sec. Exchange;Internal;Corporate action;Sec. Exchange;16;16001
+Security Lending;Internal;Income;Common Income;13;13001
+Settlement Taxes;Capital Movement;Capital Movement;Withdrawal;11;11010
+Split;Internal;Corporate action;Chge Amount;7;7001
+Stock dividend;Internal;Corporate action;Chge Amount;7;7005
+Subscription;Internal;Transaction;Purchase;1;1006
+Subscription entry;Internal;Transaction;Purchase;1;1007
+Subscription right;Internal;Corporate action;Chge Book Value;6;6001
+Tax deduction;Internal;Income;Income;5;5009
+Transfer Cap/Inc;Capital Movement;Capital Movement;Deposit;10;10011
+Transfer Cap/Inc withdrawal;Capital Movement;Capital Movement;Withdrawal;11;11011

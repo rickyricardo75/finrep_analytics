@@ -1,0 +1,9 @@
+table,column,null_or_blank_rows
+SRC_Holdings,portfolio_nk,0
+SRC_Holdings,value_date,0
+SRC_Movements,portfolio_nk,0
+SRC_Movements,trade_date,6640
+SRC_DailyValues,portfolio_nk,0
+SRC_DailyValues,value_date,0
+SRC_CashAgenda,portfolio_nk,0
+SRC_CashAgenda,event_date,0

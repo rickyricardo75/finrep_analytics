@@ -1,0 +1,6 @@
+table,column,min,max
+CDM_Holdings,value_date,2021-08-31,2025-08-31
+CDM_PortfolioDailyValues,value_date,2012-12-31,2025-09-15
+CDM_Transactions,trade_date,2019-12-09,2021-08-30
+CDM_Transactions,settle_date,2019-05-08,2025-08-31
+CDM_CashAgenda,event_date,1997-09-30,2025-06-30

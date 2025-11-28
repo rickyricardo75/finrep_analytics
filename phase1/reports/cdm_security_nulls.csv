@@ -1,0 +1,4 @@
+table,column,null_rows
+CDM_Holdings,security_sk,343
+CDM_CashAgenda,security_sk,0
+CDM_Transactions,security_sk,9627

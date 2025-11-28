@@ -1,0 +1,5 @@
+table,column,null_rows
+CDM_Holdings,portfolio_sk,0
+CDM_PortfolioDailyValues,portfolio_sk,0
+CDM_Transactions,portfolio_sk,0
+CDM_CashAgenda,portfolio_sk,0

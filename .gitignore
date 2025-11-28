@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ---- Python
 __pycache__/
 *.py[cod]
@@ -24,3 +25,10 @@ Thumbs.db
 # ---- BI files (optional: remove if you want to track them)
 *.pbix
 *.pbip
+=======
+__pycache__/
+*.pyc
+.venv*/
+*.log
+.DS_Store
+>>>>>>> 79f9b296 (Initial commit: Phase 1 (Moves 1-4), DQ reports, snapshot)
