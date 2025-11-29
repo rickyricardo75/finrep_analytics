@@ -41,3 +41,4 @@ Thumbs.db
 
 # ---- Avoid nested repo accidentally added
 finrep_analytics/
+finrep_env/
