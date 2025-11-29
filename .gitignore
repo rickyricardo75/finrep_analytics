@@ -1,16 +1,25 @@
-<<<<<<< HEAD
 # ---- Python
 __pycache__/
 *.py[cod]
 *.pyd
+.venv*/
 .venv/
 .env
+*.log
 
 # ---- Local data & outputs (don’t version raw/curated files)
 data/
 *.parquet
 *.csv
 *.xlsx
+
+# ---- Phase 1 artifacts (DB & raw sources tracked via snapshot ZIP instead)
+phase1/phase1.db
+phase1/data/source/
+phase1/reports/
+
+# ---- Snapshots
+phase1_snapshot_*.zip
 
 # ---- dbt & logs
 target/
@@ -22,13 +31,13 @@ logs/
 .DS_Store
 Thumbs.db
 
+# ---- IDE
+.idea/
+.vscode/
+
 # ---- BI files (optional: remove if you want to track them)
 *.pbix
 *.pbip
-=======
-__pycache__/
-*.pyc
-.venv*/
-*.log
-.DS_Store
->>>>>>> 79f9b296 (Initial commit: Phase 1 (Moves 1-4), DQ reports, snapshot)
+
+# ---- Avoid nested repo accidentally added
+finrep_analytics/

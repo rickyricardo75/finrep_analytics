@@ -1,0 +1,4 @@
+transaction_src,txn_type
+Purchase,BUY
+Sale,SELL
+Dividend (Gross),DIVIDEND
