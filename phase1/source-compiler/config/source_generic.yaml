@@ -1,0 +1,118 @@
+
+# Phase 1 / Move 5 — Source Compiler config
+source_id: GENERIC
+encoding_priority: ["utf-8", "cp1252", "latin1"]
+delimiter_priority: [",", ";", "|", "\t"]
+
+# Commit the compiler to auto-truncate before loading
+truncate_before_load: ["SRC_CashAgenda","SRC_GenericCalendar"]
+
+# Header aliases: map canonical -> list of possible messy headers
+header_aliases:
+  portfolio_nk: ["Portfolio number", "Portfolio No", "Portfolio", "Portf. #"]
+  value_date: ["Evaluation date", "Value date", "Date", "Valuation date"]
+  eval_ccy: ["Currency", "Eval CCY"]
+  security_nk: ["ISIN", "Security ISIN", "Identifier"]
+  position_id: ["Identification number", "Position ID"]
+  security_name: ["Description", "Security Name"]
+  qty_raw: ["Quantity / Amount", "Quantity", "Qty"]
+  price_raw: ["Price", "Unit Price"]
+  native_ccy: ["Trade currency", "Currency", "CCY"]
+  transaction_src: ["Transaction", "Txn", "Operation"]
+  accounting_src: ["Accounting", "Posting"]
+  amount_raw: ["Amount", "Gross amount", "Quantity / Amount"]
+  event_date: ["Date", "Event date"]
+  evaluation_date: ["Evaluation date"]
+  cash_flow_type_src: ["Type of cash flow"]
+  asset_bucket_src: ["Cash flow type"]
+  # calendar fields
+  day: ["Day"]
+  month: ["Month"]
+  week: ["Week"]
+  quarter: ["Quarter"]
+  year: ["Year"]
+  is_month_end: ["End of Month", "is_month_end"]
+  is_year_end: ["End of Year", "is_year_end"]
+
+# Date formats to try (fast → flexible)
+date_format_priority: ["%Y-%m-%d", "%d.%m.%Y", "%d/%m/%Y", "%m/%d/%Y", "%Y%m%d"]
+dayfirst_default: true
+
+# Per file-type mapping rules (from canonical -> target table column)
+files:
+  - name: Holdings
+    path: "data/source/portfolio/Holdings.csv"
+    target_table: "SRC_Holdings"
+    required: ["portfolio_nk", "value_date", "security_nk"]
+    map:
+      portfolio_nk: portfolio_nk
+      value_date: value_date
+      security_nk: security_nk
+      position_id: position_id
+      security_name: security_name
+      qty_raw: qty_raw
+      price_raw: price_raw
+      native_ccy: native_ccy
+
+  - name: Movements
+    path: "data/source/portfolio/Movements.csv"
+    target_table: "SRC_Movements"
+    required: ["portfolio_nk", "trade_date"]
+    map:
+      trade_id: trade_id
+      portfolio_nk: portfolio_nk
+      settle_date: settle_date
+      trade_date: trade_date
+      transaction_src: transaction_src
+      accounting_src: accounting_src
+      price_raw: price_raw
+      amount_raw: amount_raw
+      native_ccy: native_ccy
+
+  - name: DailyValues
+    path: "data/source/performance/DailyValues.csv"
+    target_table: "SRC_DailyValues"
+    required: ["portfolio_nk", "value_date"]
+    map:
+      portfolio_nk: portfolio_nk
+      value_date: value_date
+      eval_ccy: eval_ccy
+      value_end: value_end
+      inflow: inflow
+      outflow: outflow
+
+  - name: CashAgenda
+    path: "data/source/performance/CashAgenda.csv"
+    target_table: "SRC_CashAgenda"
+    required: ["portfolio_nk", "event_date"]
+    map:
+      event_date: event_date
+      evaluation_date: evaluation_date
+      portfolio_nk: portfolio_nk
+      security_nk: security_nk
+      cash_flow_type_src: cash_flow_type_src
+      asset_bucket_src: asset_bucket_src
+      native_ccy: native_ccy
+      amount_raw: amount_raw
+
+  - name: DailyValuesCalendar
+    path: "data/source/calendars/DailyValuesCalendar.csv"
+    target_table: "SRC_GenericCalendar"
+    required: ["value_date"]  # will resolve to cal_date
+    calendar: true
+
+  - name: MovementsCalendar
+    path: "data/source/calendars/MovementsCalendar.csv"
+    target_table: "SRC_GenericCalendar"
+    required: ["value_date"]
+    calendar: true
+
+  - name: CashAgendaCalendar
+    path: "data/source/calendars/CashAgendaCalendar.csv"
+    target_table: "SRC_GenericCalendar"
+    required: ["value_date"]
+    calendar: true
+
+dq_thresholds:
+  min_date_parse_rate: 0.90   # quarantine if < 90% parsed for required date fields
+  min_required_coverage: 1.00 # quarantine row if any required is missing
