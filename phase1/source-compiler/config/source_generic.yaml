@@ -82,6 +82,8 @@ files:
     file_type: csv
     path: "data/source/portfolio/Holdings.csv"
     target_table: "SRC_Holdings"
+    delimiter: ";"
+    encoding: [ "cp1252","utf-8" ]
     required: ["portfolio_nk"]                    # AND set
     required_any: [["value_date","evaluation_date"]]  # OR set (must have at least one)
     map:
@@ -99,6 +101,8 @@ files:
     file_type: csv
     path: "data/source/portfolio/Movements.csv"
     target_table: "SRC_Movements"
+    delimiter: ";"
+    encoding: [ "cp1252","utf-8" ]
     required: ["portfolio_nk"]
     required_any: [["trade_date","settle_date","value_date","evaluation_date"]]
     map:
@@ -147,7 +151,7 @@ files:
       pre_tax_native: pre_tax_native
       pre_tax_eval: pre_tax_eval
       after_tax_native: after_tax_native
-  
+
 
   # ---- DAILY VALUES CALENDAR (single-column CSV: Date)
   - name: DailyValuesCalendar
