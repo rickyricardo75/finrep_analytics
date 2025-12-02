@@ -1,49 +1,89 @@
+# =========================
+# Source Compiler – Generic Config (Fixed)
+# =========================
 
-# Phase 1 / Move 5 — Source Compiler config
-source_id: GENERIC
+# --- Global read priorities
 encoding_priority: ["utf-8", "cp1252", "latin1"]
 delimiter_priority: [",", ";", "|", "\t"]
-
-# Commit the compiler to auto-truncate before loading
-truncate_before_load: ["SRC_CashAgenda","SRC_GenericCalendar"]
-
-# Header aliases: map canonical -> list of possible messy headers
-header_aliases:
-  portfolio_nk: ["Portfolio number", "Portfolio No", "Portfolio", "Portf. #"]
-  value_date: ["Evaluation date", "Value date", "Date", "Valuation date"]
-  eval_ccy: ["Currency", "Eval CCY"]
-  security_nk: ["ISIN", "Security ISIN", "Identifier"]
-  position_id: ["Identification number", "Position ID"]
-  security_name: ["Description", "Security Name"]
-  qty_raw: ["Quantity / Amount", "Quantity", "Qty"]
-  price_raw: ["Price", "Unit Price"]
-  native_ccy: ["Trade currency", "Currency", "CCY"]
-  transaction_src: ["Transaction", "Txn", "Operation"]
-  accounting_src: ["Accounting", "Posting"]
-  amount_raw: ["Amount", "Gross amount", "Quantity / Amount"]
-  event_date: ["Date", "Event date"]
-  evaluation_date: ["Evaluation date"]
-  cash_flow_type_src: ["Type of cash flow"]
-  asset_bucket_src: ["Cash flow type"]
-  # calendar fields
-  day: ["Day"]
-  month: ["Month"]
-  week: ["Week"]
-  quarter: ["Quarter"]
-  year: ["Year"]
-  is_month_end: ["End of Month", "is_month_end"]
-  is_year_end: ["End of Year", "is_year_end"]
-
-# Date formats to try (fast → flexible)
-date_format_priority: ["%Y-%m-%d", "%d.%m.%Y", "%d/%m/%Y", "%m/%d/%Y", "%Y%m%d"]
 dayfirst_default: true
+date_format_priority: ["%Y-%m-%d", "%d.%m.%Y", "%d/%m/%Y", "%m/%d/%Y", "%Y%m%d"]
 
-# Per file-type mapping rules (from canonical -> target table column)
+# --- Defaults for specific readers (used only if a file does not override)
+file_defaults:
+  sheet: 0
+  header_row: 0
+  skiprows: []
+  pdf_pages: "1"
+  pdf_flavor: "lattice"
+
+# --- Data quality thresholds
+dq_thresholds:
+  min_date_parse_rate: 0.90      # calendars must parse >=90% of dates
+  min_required_coverage: 1.00
+
+# --- Optional: tables to clear before each run (avoid duplicates)
+truncate_before_load:
+  - SRC_Holdings
+  - SRC_Movements
+  - SRC_DailyValues
+  - SRC_CashAgenda
+  - SRC_GenericCalendar
+
+# --- Header alias map (raw header → canonical field)
+header_aliases:
+  # Core dates (keep valuation vs extraction distinct)
+  value_date: ["valuation date", "value date", "as of", "asof", "pricing date", "date"]
+  evaluation_date: ["evaluation date", "extract date", "extraction date", "run date", "report date"]
+
+    # Portfolio / identifiers
+  portfolio_nk: ["portfolio number", "portfolio_no", "portfolio id", "portfolio"]
+  security_nk: ["isin", "security id", "security code", "instrument id"]
+  position_id: ["position id", "position_no", "position number", "identification number"]
+  security_name: ["description", "security name", "instrument", "name"]
+
+  # Amounts / prices / currencies
+  qty_raw: ["quantity", "qty", "quantity / amount", "amount"]
+  price_raw: ["price", "unit price"]
+  amount_raw: ["amount", "gross amount", "net amount", "cash amount", "quantity / amount"]
+  native_ccy: ["currency", "trade currency", "ccy"]
+  eval_ccy: ["currency", "eval ccy", "valuation currency"]
+
+  # Movements (transaction / accounting)
+  trade_id: ["transaction number", "tx id", "trade id", "operation id"]
+  trade_date: ["purchase date", "trade date", "transaction date", "booking date"]
+  settle_date: ["value date", "settlement date", "val date"]
+  transaction_src: ["transaction", "tx type", "operation"]
+  accounting_src: ["accounting", "gl", "ledger"]
+
+ # CashAgenda-specific and shared fields (ADDITIVE)
+  event_date: ["date"]                      # CashAgenda's "Date" → event_date
+  amount_raw: ["quantity / amount"]         # maps "Quantity / Amount"
+  cash_flow_type_src: ["type of cash flow", "cash flow type"]
+  pre_tax_native: ["value pre-tax in trade currency"]
+  pre_tax_eval: ["value pre-tax in evaluation currency"]
+  after_tax_native: ["value after tax in trade currency"]
+
+  # Calendars (CashAgendaCalendar already has explicit names)
+  day: ["day"]
+  month: ["month"]
+  week: ["week", "week of year"]
+  quarter: ["quarter"]
+  year: ["year"]
+  is_month_end: ["end of month"]
+  is_year_end: ["end of year"]
+
+# =========================
+# FILES
+# =========================
 files:
+
+  # ---- PORTFOLIO HOLDINGS (CSV)
   - name: Holdings
+    file_type: csv
     path: "data/source/portfolio/Holdings.csv"
     target_table: "SRC_Holdings"
-    required: ["portfolio_nk", "value_date", "security_nk"]
+    required: ["portfolio_nk"]                    # AND set
+    required_any: [["value_date","evaluation_date"]]  # OR set (must have at least one)
     map:
       portfolio_nk: portfolio_nk
       value_date: value_date
@@ -54,25 +94,31 @@ files:
       price_raw: price_raw
       native_ccy: native_ccy
 
+  # ---- PORTFOLIO MOVEMENTS (CSV)
   - name: Movements
+    file_type: csv
     path: "data/source/portfolio/Movements.csv"
     target_table: "SRC_Movements"
-    required: ["portfolio_nk", "trade_date"]
+    required: ["portfolio_nk"]
+    required_any: [["trade_date","settle_date","value_date","evaluation_date"]]
     map:
       trade_id: trade_id
       portfolio_nk: portfolio_nk
-      settle_date: settle_date
       trade_date: trade_date
+      settle_date: settle_date
       transaction_src: transaction_src
       accounting_src: accounting_src
       price_raw: price_raw
       amount_raw: amount_raw
       native_ccy: native_ccy
 
+  # ---- DAILY VALUES (CSV)
   - name: DailyValues
+    file_type: csv
     path: "data/source/performance/DailyValues.csv"
     target_table: "SRC_DailyValues"
-    required: ["portfolio_nk", "value_date"]
+    required: ["portfolio_nk"]
+    required_any: [["value_date","evaluation_date"]]
     map:
       portfolio_nk: portfolio_nk
       value_date: value_date
@@ -81,38 +127,57 @@ files:
       inflow: inflow
       outflow: outflow
 
+  # ---- CASH AGENDA (CSV)
   - name: CashAgenda
+    file_type: csv
     path: "data/source/performance/CashAgenda.csv"
+    delimiter: ";"
+    encoding: ["cp1252", "utf-8"]
     target_table: "SRC_CashAgenda"
-    required: ["portfolio_nk", "event_date"]
+    required: ["portfolio_nk"]
+    required_any: [["value_date","evaluation_date"]]
     map:
+      portfolio_nk: portfolio_nk
       event_date: event_date
       evaluation_date: evaluation_date
-      portfolio_nk: portfolio_nk
-      security_nk: security_nk
-      cash_flow_type_src: cash_flow_type_src
-      asset_bucket_src: asset_bucket_src
       native_ccy: native_ccy
       amount_raw: amount_raw
+      security_nk: security_nk
+      cash_flow_type_src: cash_flow_type_src
+      pre_tax_native: pre_tax_native
+      pre_tax_eval: pre_tax_eval
+      after_tax_native: after_tax_native
+  
 
+  # ---- DAILY VALUES CALENDAR (single-column CSV: Date)
   - name: DailyValuesCalendar
+    file_type: csv
     path: "data/source/calendars/DailyValuesCalendar.csv"
     target_table: "SRC_GenericCalendar"
-    required: ["value_date"]  # will resolve to cal_date
     calendar: true
+    # Deterministic read: one-column header 'Date'
+    delimiter: ","
+    encoding: "utf-8"
+    force_single_date_column: true
+    required_any: [["value_date","date"]]
 
+  # ---- MOVEMENTS CALENDAR (single-column CSV: Date)
   - name: MovementsCalendar
+    file_type: csv
     path: "data/source/calendars/MovementsCalendar.csv"
     target_table: "SRC_GenericCalendar"
-    required: ["value_date"]
     calendar: true
+    delimiter: ","
+    encoding: "utf-8"
+    force_single_date_column: true
+    required_any: [["value_date","date"]]
 
+  # ---- CASH AGENDA CALENDAR (multi-column; semicolon-delimited)
   - name: CashAgendaCalendar
+    file_type: csv
     path: "data/source/calendars/CashAgendaCalendar.csv"
     target_table: "SRC_GenericCalendar"
-    required: ["value_date"]
     calendar: true
-
-dq_thresholds:
-  min_date_parse_rate: 0.90   # quarantine if < 90% parsed for required date fields
-  min_required_coverage: 1.00 # quarantine row if any required is missing
+    delimiter: ";"
+    encoding: "utf-8"
+    required_any: [["value_date","date"]]
