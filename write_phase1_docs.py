@@ -4,9 +4,9 @@ root = Path(r"C:\Users\Dick\pyproj_finrep")
 docs = root / "docs"
 docs.mkdir(exist_ok=True)
 
-README = r"""# Leman Quest — Financial Reporting (Phase 1)
+README = """# Leman Quest — Financial Reporting (Phase 1)
 
-Phase-1 delivers a reproducible pipeline that consolidates heterogeneous sources into a **Common Data Model (CDM)** with a Source Compiler to normalize headers, dates, encodings, and delimiters.
+Phase-1 delivers a reproducible pipeline that consolidates heterogeneous sources into a Common Data Model (CDM) with a Source Compiler to normalize headers, dates, encodings, and delimiters.
 
 ## Outcomes
 - SQLite DB: `phase1/phase1.db`
@@ -15,11 +15,11 @@ Phase-1 delivers a reproducible pipeline that consolidates heterogeneous sources
 - Source Compiler (Move-5): `phase1/source-compiler/`
 
 ## Moves (1→5)
-1) **Schemas & refs** → DDL + seed reference maps  
-2) **Load landing** → raw sources into `SRC_*`  
-3) **Build CDM** → dimensions & facts (`CDM_*`)  
-4) **Housekeeping** → snapshot + manifest  
-5) **Source Compiler** → normalization into `SRC_*` (idempotent)
+1) Schemas & refs → DDL + seed reference maps
+2) Load landing → raw sources into `SRC_*`
+3) Build CDM → dimensions & facts (`CDM_*`)
+4) Housekeeping → snapshot + manifest
+5) Source Compiler → normalization into `SRC_*` (idempotent)
 
 ## Calendars
 All calendar files are neutral; they load to `SRC_GenericCalendar(date, …)`. Semantic joins (e.g., evaluation_date, ticket_date) happen later.
