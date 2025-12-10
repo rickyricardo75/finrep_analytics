@@ -25,3 +25,33 @@ for name, sql in cases:
         df.to_excel(xw, sheet_name=name, index=False, startrow=0)
 c.close()
 print("Fixtures written to:", OUT)
+
+# --- PDF fixture (optional) -----------------------------------------------
+# Requires: pip install reportlab
+try:
+    from reportlab.platypus import SimpleDocTemplate, Table
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib import colors
+
+    def _write_pdf_table(df, out_path):
+        data = [list(df.columns)] + df.astype(str).values.tolist()
+        doc = SimpleDocTemplate(str(out_path), pagesize=A4, leftMargin=24, rightMargin=24, topMargin=24, bottomMargin=24)
+        tbl = Table(data, repeatRows=1)
+        # light grid to help lattice extraction
+        tbl.setStyle([
+            ("GRID", (0,0), (-1,-1), 0.5, colors.black),
+            ("BACKGROUND", (0,0), (-1,0), colors.lightgrey),
+        ])
+        doc.build([tbl])
+
+    # create a small PDF from the first 50 rows of DailyValues fixture
+    pdf_src = OUT / "DailyValues.pdf"
+    try:
+    	base_df = pd.read_csv(OUT / "DailyValues.csv").head(50)
+    except Exception:
+    	base_df = pd.read_excel(OUT / "DailyValues.xlsx").head(50)
+    _write_pdf_table(base_df, pdf_src)
+    print(f"PDF fixture written: {pdf_src}")
+except Exception as e:
+    print(f"[skip PDF] {e}  (install with: pip install reportlab)")
+

@@ -1,3 +1,4 @@
+# prints row counts for the landing tables (SRC_*) so you can quickly confirm loads/ingests worked.
 import sqlite3
 c=sqlite3.connect("phase1.db");cur=c.cursor()
 print("SRC_Holdings:",cur.execute("SELECT COUNT(*) FROM SRC_Holdings").fetchone()[0])

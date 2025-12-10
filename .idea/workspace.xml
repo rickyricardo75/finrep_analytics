@@ -5,9 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e305de8d-b00f-45aa-b889-9919db3b75c6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/docs/cmd_cookbook.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/dq_troubleshooting.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/github_process.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/phase1_spec.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/python_components.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CONTRIBUTING.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/phase1_runbook.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/phase1/check_src_counts.py" beforeDir="false" afterPath="$PROJECT_DIR$/phase1/check_src_counts.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/phase1/phase1.db" beforeDir="false" afterPath="$PROJECT_DIR$/phase1/phase1.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/phase1/source-compiler/config/source_generic.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/phase1/source-compiler/config/source_generic.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/phase1/source-compiler/src/make_fixtures.py" beforeDir="false" afterPath="$PROJECT_DIR$/phase1/source-compiler/src/make_fixtures.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/write_phase1_docs.py" beforeDir="false" afterPath="$PROJECT_DIR$/write_phase1_docs.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +36,8 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/docs/cmd_cookbook.md" root0="SKIP_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/docs/phase1_spec.md" root0="SKIP_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/phase1/audit_calendars.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/phase1/load_cdm_phase1.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/phase1/load_src_phase1.py" root0="SKIP_INSPECTION" />

@@ -185,3 +185,18 @@ files:
     delimiter: ";"
     encoding: "utf-8"
     required_any: [["value_date","date"]]
+
+  # ---- Daily Values (PDF)
+  - name: DailyValues_pdf
+    path: source-compiler\samples\DailyValues.pdf
+    file_type: pdf
+    pdf_pages: "1"
+    target_table: SRC_DailyValues
+    required: [portfolio_nk, evaluation_date, native_ccy]
+    map:
+      portfolio_nk: portfolio_nk
+      evaluation_date: value_date   # map PDF "evaluation date" into target value_date
+      native_ccy: native_ccy
+      value_end: value_end
+
+
